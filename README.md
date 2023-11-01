@@ -99,7 +99,7 @@ Notice, that there are two CanBus lines available. According to my testing, both
 This is how Arduino together with MCP module and shifter has to be connected: 
 
 | Source 	| Destination  |
-|-|-|-|
+|-|-|
 | Arduino PIN **2** 	        | MCP PIN **INT** |
 | Arduino PIN **8**	            | MCP PIN **CS**  |
 | Arduino ICSP **SCK**	        | MCP PIN **SCK**  |
