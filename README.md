@@ -44,7 +44,7 @@ This project is strictly related to Arduino board, so requirements are:
 * Arduino IDE (tested with 2.1.0)
 * mcp_can library (1.5.0)
 * SPI library (built-in)
-* Joystick library by Giuseppe Martini (2.1.1)
+* Joystick library by Giuseppe Martini (2.1.1) - in arduinoLib folder in this project
 
 > Libraries versions are those I have ran my shifter with.
 
@@ -60,6 +60,7 @@ At the moment project is compatible with following BMW gear selectors:
 
 * BMW 5 MY 2010 F10 F11: /P BMW 9 218 102-04
 * BMW 5 MY 2012 F10 F11: /P BWM 9 291 527-01
+* BMW 5 MY 2013 X3 F25: /P BMW 9 296 905-01
 
 Looks like the only reliable parameter is part number. Do not rely on just how the shifter looks.
 
@@ -92,7 +93,25 @@ This is how shifter pinout looks like:
 
 TBD
 
+* **BWM 9 296 905-01**
+
+| Pin 	| Wire Colour   | Function |
+|-|-|-|
+| 1 	| Empty / N/A   | N/A       |
+| 2 	| Empty / N/A   | N/A       |
+| 3 	| Red 	        | CAN Low   |
+| 4 	| Blue/Red 	    | CAN High  |
+| 5 	| White/Blue 	| CAN2 Low  |
+| 6 	| White/Yellow 	| CAN2 High |
+| 7 	| Green/Red 	| +12V - must be connected |
+| 8 	| Brown 	    | Ground    |
+| 9 	| Empty / N/A   | N/A       |
+| 10 	| Red/Green 	| +12V - must be connected |
+
+![shifter_connector](.images/shifter_connector.JPG)
+
 Notice, that there are two CanBus lines available. According to my testing, both of lines are producing the same messages, so doesn't matter which one will be used.
+Notice, shifter must be connected to power before connect leonardo to PC.
 
 ### Arduino / MCP pinout / connection 
 
@@ -117,6 +136,25 @@ Refer to this [image](https://duino4projects.com/wp-content/uploads/2013/04/Ardu
 There is a ```code``` directory in this project structure. It is split into more directories named as particular BMW shifter part numbers.
 
 Select Arduino project file from the directory named as your shifter part number and just upload code into Arduino board as usual.
+
+For upload code to 'Leonardo' board, it's useful to use the 'Uno' board as a programmer.
+- First, connect the Arduino Uno
+- Then upload ArduinoISP from the examples in the Arduino IDE to the Uno
+- Open the shifter code
+- Next, connect the Arduino Uno to the Leonardo (The pinout table is below)
+- Select Leonardo as the board type
+- Select the port
+- Upload the sketch via the Arduino IDE by clicking on 'Sketch' and choosing 'Upload using Programmer'"
+
+#### Pinout Arduino Uno as Programmer
+| Function | Arduino Uno Pin | Arduino Leonardo Pin |
+|----------|-----------------|-----------------------|
+| MISO     | 12              | ICSP-1 (MISO)         |
+| MOSI     | 11              | ICSP-4 (MOSI)         |
+| SCK      | 13              | ICSP-3 (SCK)          |
+| RESET    | 10              | Reset pin             |
+| VCC      | 5V              | 5V                    |
+| GND      | GND             | GND                   |
 
 ### Starting shifter
 
